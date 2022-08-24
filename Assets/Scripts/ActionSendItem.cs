@@ -15,7 +15,7 @@ public class ActionSendItem: ButtonAction {
 
             if (target != null) {
                 ItemLandingPad landingPad = target.GetComponent<ItemLandingPad>();
-                if (landingPad != null && landingPad.LandItem()) {
+                if (landingPad != null && landingPad.LandItem(_launchPad.LaunchedItem())) {
                     _launchPad.CompleteSending();
                     Cancel();
                     return true;

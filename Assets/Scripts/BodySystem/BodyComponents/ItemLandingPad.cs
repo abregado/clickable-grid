@@ -9,8 +9,8 @@ public class ItemLandingPad: BodyComponent {
         Debug.Assert(_itemInventory != null, this.gameObject.name + " is missing an item inventory.");
     }
 
-    public bool LandItem() {
-        if (_itemInventory.PutItem()) {
+    public bool LandItem(Item landedItem) {
+        if (_itemInventory.PutItem(landedItem)) {
             return true;
         }
 

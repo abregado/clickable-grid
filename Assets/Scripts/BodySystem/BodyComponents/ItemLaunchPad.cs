@@ -31,7 +31,7 @@ public class ItemLaunchPad : BodyComponent
             return false;
         }
 
-        if (_itemInventory.currentInventoryState != ItemInventory.InventoryState.FULL) {
+        if (!_itemInventory.HasItemToTake()) {
             return false;
         }
         
@@ -52,5 +52,9 @@ public class ItemLaunchPad : BodyComponent
     public void CancelSending() {
         _displayController.SetVisibility(false);
         SceneAccess.instance.bodySystem.RelinquishControllership(_body);
+    }
+
+    public Item LaunchedItem() {
+        return _itemInventory.currentItem;
     }
 }
