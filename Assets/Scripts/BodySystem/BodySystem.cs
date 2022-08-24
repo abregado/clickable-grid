@@ -7,10 +7,7 @@ public class BodySystem : MonoBehaviour {
     private Dictionary<Vector3Int, Body> _bodies;
     private List<LocalPlayer> _interactingPlayers;
 
-    private SceneAccess _sceneAccess;
-    
     void Awake() {
-        _sceneAccess = SceneAccess.instance;
         _bodies = new Dictionary<Vector3Int, Body>();
         _interactingPlayers = new List<LocalPlayer>();
     }
@@ -41,7 +38,7 @@ public class BodySystem : MonoBehaviour {
             }
         }
         //check there is not another Body registered at this location
-        Vector3Int bodyCell = _sceneAccess.grid.WorldToCell(unregisteredBody.transform.position);
+        Vector3Int bodyCell = SceneAccess.instance.grid.WorldToCell(unregisteredBody.transform.position);
         if (_bodies.ContainsKey(bodyCell)) {
             Debug.LogError("The Body on " + unregisteredBody.gameObject.name + " is trying to register itself, although another Body is already registered at the same location (" + bodyCell.ToString() + ")" );
             return;
