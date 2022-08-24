@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc10f17a3f41c749bc195bc642fb4c0, type: 3}
+  m_Name: SmeltIron
+  m_EditorClassIdentifier: 
+  prettyName: Smelt Iron
+  ingredient: {fileID: 11400000, guid: 7e9f239bbb1301f44bd1f56d7146afb1, type: 2}
+  product: {fileID: 11400000, guid: 317ff3f0c58edbf4cbe4dacdc0048370, type: 2}
+  cookTime: 5

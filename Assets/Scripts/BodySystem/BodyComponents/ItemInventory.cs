@@ -23,8 +23,8 @@ public class ItemInventory : MonoBehaviour {
         UpdateInventoryVisuals();
     }
     
-    public bool PutItem(Item incomingItem) {
-        if (!CouldAcceptItem(incomingItem)) {
+    public bool PutItem(Item incomingItem, bool force = false) {
+        if (!CouldAcceptItem(incomingItem) || force) {
             return false;
         }
         
@@ -34,6 +34,27 @@ public class ItemInventory : MonoBehaviour {
         return true;
     }
 
+    public bool ReserveSpaceForItem(Item eventualItem, bool force = false) {
+        if (!(CouldAcceptItem(eventualItem) || force)) {
+            return false;
+        }
+
+        _currentInventoryState = InventoryState.INCOMING;
+        currentItem = eventualItem;
+        UpdateInventoryVisuals();
+        return true;
+    }
+
+    public bool DeliverItem(Item itemType) {
+        if (itemType != currentItem) {
+            return false;
+        }
+
+        _currentInventoryState = InventoryState.FULL;
+        UpdateInventoryVisuals();
+        return true;
+    }
+    
     public Item TakeItem() {
         if (_currentInventoryState != InventoryState.FULL) {
             return null;
@@ -54,10 +75,14 @@ public class ItemInventory : MonoBehaviour {
         return currentItem != null && _currentInventoryState == InventoryState.FULL;
     }
 
+    public bool HasItemToTake(Item expectedItem) {
+        return currentItem == expectedItem && _currentInventoryState == InventoryState.FULL;
+    }
+
     private void UpdateInventoryVisuals() {
         if (currentItem != null) {
             _inventoryDisplay.UpdateIndicator(currentItem.sprite);
         }
-        _inventoryDisplay.SetVisibility(_currentInventoryState == InventoryState.FULL);
+        _inventoryDisplay.SetVisibility(_currentInventoryState);
     }
 }
