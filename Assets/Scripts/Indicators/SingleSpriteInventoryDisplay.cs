@@ -3,7 +3,7 @@
 public class SingleSpriteInventoryDisplay: MonoBehaviour {
     private SpriteRenderer _inventoryRenderer;
 
-    public void Awake() {
+    public void Init() {
         _inventoryRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     
@@ -19,7 +19,7 @@ public class SingleSpriteInventoryDisplay: MonoBehaviour {
                     break;
                 case ItemInventory.InventoryState.INCOMING:
                     _inventoryRenderer.enabled = true;
-                    _inventoryRenderer.color = new Color(255,125,0,50);
+                    _inventoryRenderer.color = new Color(255,255,255,5);
                     break;
                 default:
                     _inventoryRenderer.enabled = false;

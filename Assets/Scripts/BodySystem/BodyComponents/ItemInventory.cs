@@ -20,6 +20,7 @@ public class ItemInventory : MonoBehaviour {
         _owner = GetComponent<Body>();
         _currentInventoryState = currentItem != null ? InventoryState.FULL: InventoryState.EMPTY;
         _inventoryDisplay = GetComponentInChildren<SingleSpriteInventoryDisplay>();
+        _inventoryDisplay.Init();
         UpdateInventoryVisuals();
     }
     
