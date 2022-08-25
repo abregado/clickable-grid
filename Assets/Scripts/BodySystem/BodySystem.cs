@@ -56,9 +56,10 @@ public class BodySystem : MonoBehaviour {
 
         if (CheckBodyIsRegistered(movedBody)) {
             Debug.Log("Registered body was moved");
-            _bodies[movedBody.bodyCell] = null;
-            _bodies.Add(dest,movedBody);
-            movedBody.Move(dest);
+            Body removedBody;
+            _bodies.Remove(movedBody.bodyCell, out removedBody);
+            _bodies.Add(dest,removedBody);
+            removedBody.Move(dest);
             return true;
         }
 
