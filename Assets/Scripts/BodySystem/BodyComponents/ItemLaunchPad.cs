@@ -45,10 +45,14 @@ public class ItemLaunchPad : BodyComponent
         return true;
     }
 
-    public void CompleteSending() {
-        _itemInventory.TakeItem();
+    public void CompleteSending(Item claimedItem) {
+        _itemInventory.TakeReservedItem(claimedItem);
     }
-    
+
+    public void ClaimItemForShipping(Item claimedItem) {
+        _itemInventory.ReserveItemToTake(claimedItem);
+    }
+
     public void CancelSending() {
         _displayController.SetVisibility(false);
         SceneAccess.instance.bodySystem.RelinquishControllership(_body);

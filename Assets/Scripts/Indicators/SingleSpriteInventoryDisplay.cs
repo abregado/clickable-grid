@@ -19,7 +19,11 @@ public class SingleSpriteInventoryDisplay: MonoBehaviour {
                     break;
                 case ItemInventory.InventoryState.INCOMING:
                     _inventoryRenderer.enabled = true;
-                    _inventoryRenderer.color = new Color(255,255,255,5);
+                    _inventoryRenderer.color = new Color(255,0,0);
+                    break;
+                case ItemInventory.InventoryState.RESERVED:
+                    _inventoryRenderer.enabled = true;
+                    _inventoryRenderer.color = new Color(255,0,0);
                     break;
                 default:
                     _inventoryRenderer.enabled = false;

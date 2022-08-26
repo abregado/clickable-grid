@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemInventory : MonoBehaviour {
     public enum InventoryState {
         EMPTY,
+        RESERVED,
         INCOMING,
         FULL
     };
@@ -12,6 +13,7 @@ public class ItemInventory : MonoBehaviour {
     public Item[] allowedItemTypes;
     public Item currentItem;
     
+    [SerializeField]
     private InventoryState _currentInventoryState = InventoryState.EMPTY;
     private Body _owner;
     private SingleSpriteInventoryDisplay _inventoryDisplay;
@@ -46,6 +48,30 @@ public class ItemInventory : MonoBehaviour {
         return true;
     }
 
+    public bool ReserveItemToTake(Item wantedItem) {
+        if (!HasItemToTake(wantedItem)) {
+            return false;
+        }
+
+        _currentInventoryState = InventoryState.RESERVED;
+        UpdateInventoryVisuals();
+        return true;
+    }
+
+    public bool TakeReservedItem(Item wantedItem) {
+        Debug.Log(_currentInventoryState);
+        Debug.Log(currentItem);
+        Debug.Log(wantedItem);
+        if (_currentInventoryState == InventoryState.RESERVED && currentItem == wantedItem) {
+            Debug.Log("inventory giving reserved");
+            _currentInventoryState = InventoryState.EMPTY;
+            currentItem = null;
+            UpdateInventoryVisuals();
+        }
+
+        return false;
+    }
+
     public bool DeliverItem(Item itemType) {
         if (itemType != currentItem) {
             return false;
@@ -58,6 +84,7 @@ public class ItemInventory : MonoBehaviour {
     
     public Item TakeItem() {
         if (_currentInventoryState != InventoryState.FULL) {
+            Debug.Log("didnt take item");
             return null;
         }
 
@@ -69,7 +96,7 @@ public class ItemInventory : MonoBehaviour {
     }
 
     public bool CouldAcceptItem(Item itemType) {
-        return allowedItemTypes.Contains(itemType) && _currentInventoryState == InventoryState.EMPTY;
+        return (allowedItemTypes.Contains(itemType) && _currentInventoryState == InventoryState.EMPTY) || (_currentInventoryState == InventoryState.INCOMING && currentItem == itemType);
     }
 
     public bool HasItemToTake() {
@@ -77,7 +104,7 @@ public class ItemInventory : MonoBehaviour {
     }
 
     public bool HasItemToTake(Item expectedItem) {
-        return currentItem == expectedItem && _currentInventoryState == InventoryState.FULL;
+        return currentItem == expectedItem && (_currentInventoryState == InventoryState.FULL || _currentInventoryState == InventoryState.RESERVED) ;
     }
 
     private void UpdateInventoryVisuals() {

@@ -15,10 +15,15 @@ public class ActionSendItem: ButtonAction {
 
             if (target != null) {
                 ItemLandingPad landingPad = target.GetComponent<ItemLandingPad>();
-                if (landingPad != null && landingPad.LandItem(_launchPad.LaunchedItem())) {
-                    _launchPad.CompleteSending();
-                    Cancel();
-                    return true;
+                if (landingPad != null && landingPad.CouldLandItem(_launchPad.LaunchedItem())) {
+                    if (SceneAccess.instance.postalSystem.RequestDelivery(_fromBody.bodyCell, target.bodyCell,
+                            _launchPad.LaunchedItem())) {
+                        _launchPad.ClaimItemForShipping(_launchPad.LaunchedItem());
+                        landingPad.ReserveLandingSpace(_launchPad.LaunchedItem());
+                        Cancel();
+                        return true;    
+                    }
+                    
                 }
             }
         }
