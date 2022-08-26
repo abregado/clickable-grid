@@ -1951,7 +1951,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1279213277}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c6bf27e92724b75b711f30b2e1acc67, type: 3}
+  m_Script: {fileID: 11500000, guid: c09cb3a8ee914a23af2ad35836fe72fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1319577237
@@ -12615,6 +12615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyCell: {x: 0, y: 0, z: 0}
   controllingPlayer: {fileID: 0}
+  isLocked: 0
 --- !u!1001 &1865338588
 PrefabInstance:
   m_ObjectHideFlags: 0

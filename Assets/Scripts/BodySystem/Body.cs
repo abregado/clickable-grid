@@ -5,7 +5,8 @@ using UnityEngine;
 public class Body: MonoBehaviour {
 
     public Vector3Int bodyCell;
-    public  LocalPlayer controllingPlayer;
+    public LocalPlayer controllingPlayer;
+    public bool isLocked;
 
     public virtual void Init(Vector3Int bodyCell) {
         this.bodyCell = bodyCell;
@@ -28,6 +29,6 @@ public class Body: MonoBehaviour {
     }
 
     public bool CanBeInteractedWith() {
-        return controllingPlayer == null;
+        return controllingPlayer == null && !isLocked;
     }
 }

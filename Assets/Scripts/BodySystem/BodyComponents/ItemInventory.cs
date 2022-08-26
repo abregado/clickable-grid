@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class ItemInventory : MonoBehaviour {
+public class ItemInventory : BodyComponent {
     public enum InventoryState {
         EMPTY,
         RESERVED,
@@ -45,6 +45,7 @@ public class ItemInventory : MonoBehaviour {
         _currentInventoryState = InventoryState.INCOMING;
         currentItem = eventualItem;
         UpdateInventoryVisuals();
+        _body.isLocked = true;
         return true;
     }
 
@@ -55,18 +56,17 @@ public class ItemInventory : MonoBehaviour {
 
         _currentInventoryState = InventoryState.RESERVED;
         UpdateInventoryVisuals();
+        _body.isLocked = true;
         return true;
     }
 
     public bool TakeReservedItem(Item wantedItem) {
-        Debug.Log(_currentInventoryState);
-        Debug.Log(currentItem);
-        Debug.Log(wantedItem);
         if (_currentInventoryState == InventoryState.RESERVED && currentItem == wantedItem) {
             Debug.Log("inventory giving reserved");
             _currentInventoryState = InventoryState.EMPTY;
             currentItem = null;
             UpdateInventoryVisuals();
+            _body.isLocked = false;
         }
 
         return false;
@@ -79,6 +79,7 @@ public class ItemInventory : MonoBehaviour {
 
         _currentInventoryState = InventoryState.FULL;
         UpdateInventoryVisuals();
+        _body.isLocked = false;
         return true;
     }
     

@@ -29,7 +29,7 @@ public class ItemLandingPad: BodyComponent {
     }
 
     public bool LandItem(Item landedItem) {
-        if (_itemInventory.PutItem(landedItem)) {
+        if (_itemInventory.DeliverItem(landedItem)) {
             return true;
         }
 
